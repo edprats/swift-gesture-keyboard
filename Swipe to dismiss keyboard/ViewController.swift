@@ -10,16 +10,26 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var textView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        self.title = "Gesture Keyboard"
+        self.automaticallyAdjustsScrollViewInsets = false
+        textView.becomeFirstResponder()
+        textView.keyboardAppearance = .Dark
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: "dismissKeyboard")
+        
+        var swipeDown = UISwipeGestureRecognizer(target: self, action: "dismissKeyboard")
+        swipeDown.direction = .Down
+        
+        view.addGestureRecognizer(swipeDown)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func dismissKeyboard() {
+        textView.resignFirstResponder()
     }
-
-
 }
 
